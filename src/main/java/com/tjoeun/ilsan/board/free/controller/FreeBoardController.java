@@ -29,11 +29,12 @@ public class FreeBoardController {
 	   return "board/free/detail";
    }
    
-   @RequestMapping(value="/board/free/listView", method = RequestMethod.GET)
+   @RequestMapping(value="/board/free/listView", method = {RequestMethod.GET,RequestMethod.POST})
    public String listView(Model model, @RequestParam Map map) throws Exception {
 	   
       model.addAttribute("list", freeBoardService.list(map));
       model.addAttribute("totalPage", freeBoardService.getTotalPage(map));
+      model.addAttribute("rp",map);
 	   
       return "board/free/listView";
    }

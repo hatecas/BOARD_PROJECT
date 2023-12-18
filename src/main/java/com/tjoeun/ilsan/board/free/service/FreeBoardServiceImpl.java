@@ -31,9 +31,10 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	@Override
 	public List<Map> list(Map map){
 		Object page=map.get("page");
-		if( null == page ) {
+		if( null == page || "".equals(page) ) {
 			map.put("limit", 10);
-			map.put("offset", 0);			
+			map.put("offset", 0);	
+			map.put("page",1);
 		} else {
 			int iPage=Integer.parseInt((String)page);
 			map.put("limit", 10);
@@ -97,5 +98,4 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 			throw new Exception();
 		}		
 	}
-
 }

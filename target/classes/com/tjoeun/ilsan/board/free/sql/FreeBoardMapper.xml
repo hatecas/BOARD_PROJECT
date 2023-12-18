@@ -20,6 +20,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		<if test = "seq != null">
    			and seq = #{seq}
    		</if>
+	    <if test="(null and '') != fWrite">
+   			<![CDATA[ 
+   				and date_format(write_date,'%Y%m%d') >= #{fWrite}
+   			]]>
+   		</if>
+		<if test="null != tWrite and '' != tWrite">
+   			<![CDATA[ 
+   				and date_format(write_date,'%Y%m%d') <= #{tWrite}
+   			]]>
+   		</if>
+   		<if test="null != title and '' != title">
+   			and title like concat('%',#{title},'%')
+   		</if>		
    		and del_yn = 'N'
    		order by seq desc
    		limit #{limit}
@@ -32,6 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		from free	
    		where 1 = 1
    		and del_yn = 'N'
+   		
 	</select>
 
 
