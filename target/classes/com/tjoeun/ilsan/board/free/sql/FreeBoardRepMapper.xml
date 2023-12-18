@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.tjoeun.ilsan.board.free.sql.FreeBoardRepMapper">
+	
+	<insert id="insert" parameterType="map">
+		insert into free_reply
+		(
+			content
+	    	,f_seq
+		) values (
+			#{content}
+			,#{f_seq}
+		)
+	</insert>	
+	
+	<select id="select" resultType="map" parameterType="map">
+		select 
+			seq
+		    ,content
+		    ,date_format(write_date,'%y.%m.%d %H시%i분') write_date
+		    ,f_seq
+		from free_reply
+		where f_seq = #{f_seq}
+		order by seq desc
+			
+	</select>
+
+</mapper>
