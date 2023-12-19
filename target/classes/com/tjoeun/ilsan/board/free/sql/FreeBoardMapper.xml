@@ -33,6 +33,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		<if test="null != title and '' != title">
    			and title like concat('%',#{title},'%')
    		</if>		
+   		<if test="null != content and '' != content">
+   			and content like concat('%',#{content},'%')
+   		</if>		
    		and del_yn = 'N'
    		order by seq desc
    		limit #{limit}
