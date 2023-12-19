@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.tjoeun.ilsan.board.free.dao.FreeBoardDao;
+import com.tjoeun.ilsan.common.file.service.CommonFileService;
 
 @Service
 @EnableTransactionManagement
@@ -17,6 +19,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 
 	@Autowired
 	FreeBoardDao freeBoardDao;
+	
+	@Autowired
+	CommonFileService commonFileService;
 	
 	@Override
 	public long getTotalPage(Map map){
@@ -50,12 +55,13 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 			,rollbackFor = {Exception.class}
 			)
 	
-	public void write(Map map) throws Exception {
+	public void write(Map map, MultipartFile mFile) throws Exception{
 		map.put("writer", "leeJW");
 		int result=freeBoardDao.write(map);
 		if(result != 1) {
 			throw new Exception();
 		}
+		commonFileService.upload(map, mFile);
 	}
 
 	@Override

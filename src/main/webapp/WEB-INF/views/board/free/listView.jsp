@@ -46,9 +46,6 @@
                </li>
             </c:forEach>
          </ul>
-      </div>
-            <input type="button" value="글쓰기" style="text-align:right" onclick="location.href='/board/free/writeView'">
-      <div style="text-align:center;">
 		<c:forEach var="page" begin="1" end="${totalPage }">
 			<c:if test="${page == rp.page}">
 				<span style="margin:10px; font-weight:bold" class="spanPage" data-page="${page}">[${page }]</span>				

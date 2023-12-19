@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			,n_filename
 			,f_seq
 		from	file
-		where 	f_seq = #{f_seq}
+		where 	f_seq = #{seq}
 	</select>
 
 </mapper>

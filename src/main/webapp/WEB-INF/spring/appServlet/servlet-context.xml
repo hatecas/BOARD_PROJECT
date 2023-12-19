@@ -25,4 +25,7 @@
 	
 	<context:property-placeholder location="classpath:project.properties" />
 	
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	
 </beans:beans>

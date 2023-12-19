@@ -22,6 +22,7 @@
 			</li>
             <li>작성자:<c:out value="${free.writer } "/></li>
             <li>작성일시:<c:out value="${free.write_date2 } "/></li>
+            <li>첨부파일:<c:out value="${file.o_filename } "/></li>
          </ul>
       </div>
       <div style= "text-align:center;">      
