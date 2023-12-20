@@ -1,6 +1,7 @@
 package com.tjoeun.ilsan.board.free.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,10 @@ public class FreeBoardController {
    public String detail(Model model, @RequestParam Map map) throws Exception{
 	   
 	   model.addAttribute("free", freeBoardService.list(map).get(0));
-	   model.addAttribute("file", commonFileService.getFileList(map).get(0));
+	   List<Map> files=commonFileService.getFileList(map);
+	   if(0<files.size()) {
+		   model.addAttribute("file", commonFileService.getFileList(map).get(0));		   
+	   }
 	   
 	   return "board/free/detail";
    }
@@ -53,7 +57,7 @@ public class FreeBoardController {
    @RequestMapping(value="/board/free/write", method = RequestMethod.POST)
    public String write(@RequestParam Map map,@RequestParam(value="file") MultipartFile mFile) throws Exception {
 	   
-      freeBoardService.write(map, mFile);
+      freeBoardService.write(map, mFile); 
       
       return "redirect:/";
    }

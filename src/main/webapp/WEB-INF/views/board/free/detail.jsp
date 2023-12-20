@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE html>
 <html>
    <head>
       <meta charset="UTF-8">
@@ -22,7 +23,11 @@
 			</li>
             <li>작성자:<c:out value="${free.writer } "/></li>
             <li>작성일시:<c:out value="${free.write_date2 } "/></li>
-            <li>첨부파일:<c:out value="${file.o_filename } "/></li>
+            <li>첨부파일:
+					<a href="<c:url value='/common/file/download?n_filename=${file.n_filename }&o_filename=${file.o_filename }'/>" download>
+						<c:out value="${file.o_filename }"/>
+					</a>
+				</li>
          </ul>
       </div>
       <div style= "text-align:center;">      
