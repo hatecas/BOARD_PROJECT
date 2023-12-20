@@ -30,9 +30,12 @@ public class FreeBoardController {
    public String detail(Model model, @RequestParam Map map) throws Exception{
 	   
 	   model.addAttribute("free", freeBoardService.list(map).get(0));
-	   List<Map> files=commonFileService.getFileList(map);
-	   if(0<files.size()) {
-		   model.addAttribute("file", commonFileService.getFileList(map).get(0));		   
+	   
+	   Map fMap = new HashMap();
+	   fMap.put("f_seq",map.get("seq"));
+	   List<Map> files= commonFileService.getFileList(fMap);
+	   if(0 < files.size() ) {
+		   model.addAttribute("file", files.get(0));
 	   }
 	   
 	   return "board/free/detail";

@@ -6,7 +6,9 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -65,29 +67,22 @@ public class CommonFileServiceImpl implements CommonFileService{
 	}
 
 	@Override
-	public void download(Map map, HttpServletResponse res) throws Exception {
+	public void download(Map map, HttpServletResponse res) {
 		try {
-			File file = new File(fileUploadPath + map.get("n_filename").toString());
-			if (!file.exists()) {
-				String errorMessage = "File Not Exist.";
-				System.out.println(errorMessage);
-				OutputStream outputStream = res.getOutputStream();
-				outputStream.write(errorMessage.getBytes(Charset.forName("UTF-8")));
-				outputStream.close();
-				return;
-			}
+			Map fMap = commonFileDao.select(map).get(0);
+			File file = new File(fileUploadPath + fMap.get("n_filename").toString());
 			String mimeType = URLConnection.guessContentTypeFromName(file.getName());
 			if (mimeType == null) {
 				mimeType = "application/octet-stream";
 			}
 			res.setContentType(mimeType);
-			res.setHeader("Content-Disposition", String.format("inline; filename=\"" + map.get("o_filename").toString() + "\""));
+			String encodedFileName = URLEncoder.encode(fMap.get("o_filename").toString(), StandardCharsets.UTF_8.toString());
+	        res.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"; filename*=UTF-8''%s", encodedFileName, encodedFileName));
 			res.setContentLength((int) file.length());
 			InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
 			FileCopyUtils.copy(inputStream, res.getOutputStream());
 		} catch(Exception e) {
 			e.printStackTrace();
-			throw e;
 		}
 	}
 }

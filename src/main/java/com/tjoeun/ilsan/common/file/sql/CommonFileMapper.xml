@@ -19,13 +19,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="select" resultType="map" parameterType="map">
-		select
-			seq
-			,o_filename
-			,n_filename
-			,f_seq
-		from	file
-		where 	f_seq = #{seq}
-	</select>
+	      select
+	         seq
+	         ,o_filename
+	         ,n_filename
+	         ,f_seq
+	      from file
+	      where 1=1
+	      <if test="null != f_seq">
+	         and f_seq = #{f_seq}
+	      </if>
+	      <if test="null != seq">
+	         and seq = #{seq}
+	      </if>
+   	</select>
 
 </mapper>

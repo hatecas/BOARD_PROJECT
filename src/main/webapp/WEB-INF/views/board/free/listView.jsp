@@ -16,7 +16,7 @@
    </head>
    <body>
       <div>
-         <h1>자유게시판</h1>
+         <h1><a href="<c:url value='/'/>" style="text-decoration-line: none;">자유게시판</h1>
       </div>
       <div>
       	<input type="text" id="fCalendar" style="width:100px" value="<c:out value="${rp.fWrite}"/>" readonly>
