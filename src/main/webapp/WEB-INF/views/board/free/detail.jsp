@@ -18,16 +18,16 @@
             <li>No.<c:out value="${free.seq } "/></li>
             <li>제목:<c:out value="${free.title } "/></li>
             <li>내용:<br>
-            	<pre><c:out value="${free.content } "/>
-            	</pre>
+            	${free.content }
 			</li>
             <li>작성자:<c:out value="${free.writer } "/></li>
             <li>작성일시:<c:out value="${free.write_date2 } "/></li>
             <li>첨부파일:
-					<a href="<c:url value='/common/file/download?n_filename=${file.n_filename }&o_filename=${file.o_filename }'/>" download>
-						<c:out value="${file.o_filename }"/>
-					</a>
-				</li>
+				<c:out value="${file.o_filename }"/>
+				<input type="button" id="btnDownload" value="다운로드"
+					data-seq="<c:out value='${file.seq }'/>"
+				>
+			</li>
          </ul>
       </div>
       <div style= "text-align:center;">      
@@ -57,6 +57,9 @@
         
       <form id="frm1" action="<c:url value='/board/free/delete'/>" method="POST">
 	  	<input type="hidden" id="seq" name="seq">
+	  </form>
+	  <form id="frm2" action="<c:url value='/common/file/download'/>" method="post">
+	  	<input type="hidden" id="seq2" name="seq">
 	  </form>
       <script src="<c:url value='/cdn/js/jquery-3.7.1.min.js'/>"></script>
       <script>
@@ -152,6 +155,10 @@
   	      	});   		
       	})
       	
+		$('#btnDownload').on('click', function(){
+			$('#seq2').val($(this).data('seq'));
+			$('#frm2').submit();
+		});
       </script>
    </body>
 </html>
